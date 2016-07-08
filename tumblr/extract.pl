@@ -1,5 +1,7 @@
 #!/bin/perl
+# Usage (who cares?) `./extract.pl <date> <file>` in same directory as tumblr.html
 my $html = '';
+my $date = shift @ARGV;
 
 while (<>) {
     $html .= $_;
@@ -12,6 +14,10 @@ if ($html =~ s@<a href="/web/.*/http://mspandrew.tumblr.com/post/.*/(.*)">@<a hr
 }
 $html =~ s/\n//g;
 $html =~ s/\r//g;
+$html =~ s@<div class="notes">[0-9,]+ notes </div>@@;
+$html =~ s@<div class="date"> *Posted.*ago@<div class="date">Posted on $date@;
+$html =~ s@href="/web/[0-9]+/@href="@g;
+$html =~ s@<em>([^ ]*) asked:</em>@<em><a id="$1" href="#$1">$1 asked:</a></em>@g;
 $html .= '</div><div class="bottom"></div>';
 
 open my $fh, '<', './tumblr.html';
