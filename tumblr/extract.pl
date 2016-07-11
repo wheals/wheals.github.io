@@ -8,7 +8,7 @@ while (<>) {
 }
 $html =~ s/.*<div id="content">//s;
 $html =~ s/<div class="notecontainer">.*//s;
-if ($html =~ s@<a href="/web/[0-9]+/http://mspandrew.tumblr.com/post/.*/(.*)">@<a href="#$1">@) {
+if ($html =~ s@<a href="/web/[0-9]+/http://mspandrew.tumblr.com/post/[^ ]*/([^ ]*)">@<a href="#$1">@) {
     my $anchor = $1;
     $html =~ s/<div class="post">/<div class="post" id="$anchor">/;
 }
