@@ -28,5 +28,5 @@ while (<$fh>) {
 }
 close $fh;
 open $fh, '>', './tumblr.html';
-say $fh $tumblr;
+print $fh $tumblr;
 #print $html;
